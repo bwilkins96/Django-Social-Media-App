@@ -11,6 +11,10 @@ def index(request):
     #return HttpResponse('<h1>Welcome to Django Social!</h1>')
     return render(request, 'index.html')
 
+@login_required(login_url='signin')
+def settings(request):
+    return render(request, 'settings.html')
+
 def signup(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -33,9 +37,12 @@ def signup(request):
                 user_model = User.objects.get(username=username)
                 new_profile = Profile.objects.create(user=user_model, id_user=user_model.id)
                 new_profile.save()
-                return redirect('signup')
 
                 # log user in and redirect to settings page
+                user_login = auth.authenticate(username=username, password=password)
+                auth.login(request, user_login)
+                return redirect('settings')
+
         else:
             messages.info(request, 'Passwords Do Not Match')
             return redirect('signup')
