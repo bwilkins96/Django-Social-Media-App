@@ -5,6 +5,26 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from itertools import chain
 from .models import Profile, Post, LikePost, FollowersCount
+import time
+
+def sort_posts(posts):
+    sorted = False
+
+    while not sorted:
+        sorted = True
+
+        for i in range(len(posts)-1):
+            created_at = posts[i].created_at
+            created_at_2 = posts[i+1].created_at
+            
+            if created_at > created_at_2:
+                temp = posts[i+1]
+                posts[i+1] = posts[i]
+                posts[i] = temp
+
+                sorted = False
+  
+    return posts
 
 # Create your views here.
 @login_required(login_url='signin')
@@ -27,6 +47,11 @@ def index(request):
         feed.append(feed_posts)
 
     posts = list(chain(*feed))
+    posts = sort_posts(posts)
+    
+    # if (len(posts) > 50):
+    #     posts = posts[:50]
+
     return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts})
 
 @login_required(login_url='signin')
