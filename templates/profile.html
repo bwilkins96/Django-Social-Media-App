@@ -34,11 +34,11 @@
 					<!-- <span style="color: white; font-size: 27px; margin-right: 32vw;"><b><u><a href="/">Home</a></u></b></span> -->
 
 					{% if user_posts_length == 0 %}
-					<span style="color: white; font-size: 27px;"><b>No Posts Yet</b></span>
+					<span style="color: white; font-size: 27px;"><b>No posts yet</b></span>
 					{% elif user_posts_length == 1 %}
-					<span style="color: white; font-size: 27px;"><b>1 Post</b></span>
+					<span style="color: white; font-size: 27px;"><b>1 post</b></span>
 					{% else %}
-					<span style="color: white; font-size: 27px;"><b>{{user_posts_length}} Posts</b></span>
+					<span style="color: white; font-size: 27px;"><b>{{user_posts_length}} posts</b></span>
 					{% endif %}
 					
 					{% if user_followers == 0 %}
