@@ -172,6 +172,25 @@
 										<li>
 											<a class="strip" href="{{post.image.url}}" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
 												<img src="{{post.image.url}}" style="height: 250px; width: 300px;" alt=""></a>
+											
+											<div style="display: flex; flex-direction: row; justify-content: space-between;">
+												<div style="display: flex; flex-direction: row;">
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="25" height="25" class="">
+														<path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+													</svg>
+													<p>{{post.no_of_likes}}</p>
+												</div>
+
+												{% if user_object.username == user.username %}
+												<form action="/delete-post" method="POST">
+													{% csrf_token %}
+													<input hidden value="{{post.id}}" name="post_id">
+													<input type="checkbox" name="checked">
+													<button type="submit">Delete</button>
+												</form>
+												{% endif %}
+											</div>
+
 										</li>
 										{% endfor %}
 										

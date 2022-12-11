@@ -198,6 +198,24 @@ def like_post(request):
     return redirect('/')
 
 @login_required(login_url='signin')
+def delete_post(request):
+    if request.method == 'POST':
+        id = request.POST['post_id']
+
+        try:
+            checked = request.POST['checked']
+        except:
+            checked = None
+        
+        if checked:
+            post = Post.objects.get(id=id)
+            post.delete()
+
+        return redirect(f'/profile/{request.user.username}')
+    else:
+        return redirect('/')
+
+@login_required(login_url='signin')
 def settings(request):
     user_profile = Profile.objects.get(user=request.user)
 
